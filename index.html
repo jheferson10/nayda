@@ -10,6 +10,9 @@
             text-align: center;
             background-color: #f9f9f9;
             margin-top: 100px;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
         }
         h1 {
             font-size: 2.5em;
@@ -31,6 +34,33 @@
             background-color: #f44336;
             color: white;
             position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 5px;
+            animation: move 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes move {
+            0% {
+                top: 0;
+                left: 0;
+            }
+            25% {
+                top: 0;
+                left: calc(100% - 50px); /* El botón se moverá a la derecha */
+            }
+            50% {
+                top: calc(100% - 50px); /* El botón se moverá hacia abajo */
+                left: calc(100% - 50px);
+            }
+            75% {
+                top: calc(100% - 50px);
+                left: 0;
+            }
+            100% {
+                top: 0;
+                left: 0;
+            }
         }
     </style>
 </head>
@@ -38,7 +68,7 @@
 
     <h1>¿Quieres ser mi enamorada?</h1>
     <button class="btn yes-btn" id="yesBtn">Sí</button>
-    <button class="btn no-btn">No</button>
+    <button class="btn no-btn" id="noBtn">No</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -51,29 +81,28 @@
         document.getElementById('yesBtn').addEventListener('click', function() {
             // Crear un nuevo documento PDF
             const { jsPDF } = window.jspdf;
-const doc = new jsPDF();
+            const doc = new jsPDF();
 
-        // Obtener la fecha actual
-        const fecha = new Date().toLocaleDateString();
+            // Obtener la fecha actual
+            const fecha = new Date().toLocaleDateString();
 
-        // Contenido del documento
-        doc.text("Querida NAYDA,", 10, 20);
-        doc.text("Hoy, con el corazón lleno de alegría, quiero dejar constancia de un", 10, 30);
-        doc.text("momento muy especial en nuestras vidas.", 10, 40);
-        doc.text("Este documento, aunque sencillo, lleva consigo todo el amor y la ilusión", 10, 50);
-        doc.text("que siento por ti. Al aceptar ser mi compañera, mi confidente y mi amor,", 10, 60);
-        doc.text("Que este documento sea un símbolo de nuestro acuerdo mutuo, un testimonio", 10, 80);
-        doc.text("de que desde hoy, y siempre, caminaremos juntos, tomados de la mano,", 10, 90);
-        doc.text("con la mirada puesta en un horizonte compartido.", 10, 100);
-        doc.text("Con todo mi amor,", 10, 120);
-        doc.text("Jhefri", 10, 130);
+            // Contenido del documento
+            doc.text("Querida NAYDA,", 10, 20);
+            doc.text("Hoy, con el corazón lleno de alegría, quiero dejar constancia de un", 10, 30);
+            doc.text("momento muy especial en nuestras vidas.", 10, 40);
+            doc.text("Este documento, aunque sencillo, lleva consigo todo el amor y la ilusión", 10, 50);
+            doc.text("que siento por ti. Al aceptar ser mi compañera, mi confidente y mi amor,", 10, 60);
+            doc.text("Que este documento sea un símbolo de nuestro acuerdo mutuo, un testimonio", 10, 80);
+            doc.text("de que desde hoy, y siempre, caminaremos juntos, tomados de la mano,", 10, 90);
+            doc.text("con la mirada puesta en un horizonte compartido.", 10, 100);
+            doc.text("Con todo mi amor,", 10, 120);
+            doc.text("Jhefri", 10, 130);
 
-        // Agregar la fecha al final del documento
-        doc.text(`Fecha: ${fecha}`, 10, 150);
+            // Agregar la fecha al final del documento
+            doc.text(`Fecha: ${fecha}`, 10, 150);
 
-        // Descargar el PDF
-        doc.save("constancia.pdf");
-
+            // Descargar el PDF
+            doc.save("constancia.pdf");
 
             // Enviar correo
             emailjs.send("service_lun54nj" , "template_wr6uf3d", {
@@ -87,15 +116,7 @@ const doc = new jsPDF();
             });
         });
 
-        const noBtn = document.querySelector('.no-btn');
-
-        noBtn.addEventListener('mouseover', function() {
-            // Generar una nueva posición aleatoria dentro de los límites de la ventana
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        });
+        const noBtn = document.getElementById('noBtn');
 
         noBtn.addEventListener('click', function() {
             alert("Lo siento, no puedes elegir esta opción 😜");
