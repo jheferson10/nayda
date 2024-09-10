@@ -37,7 +37,9 @@
             top: 0;
             left: 0;
             border-radius: 5px;
-            animation: move 5s infinite alternate ease-in-out;
+            padding: 5px 10px;
+            font-size: 1em;
+            animation: move 2s infinite alternate ease-in-out;
         }
 
         @keyframes move {
@@ -45,22 +47,65 @@
                 top: 0;
                 left: 0;
             }
-            25% {
-                top: 0;
-                left: calc(100% - 50px); /* El botón se moverá a la derecha */
+            20% {
+                top: 10%;
+                left: calc(100% - 50px); /* Se mueve hacia la derecha */
             }
-            50% {
-                top: calc(100% - 50px); /* El botón se moverá hacia abajo */
+            40% {
+                top: calc(100% - 50px); /* Se mueve hacia abajo */
                 left: calc(100% - 50px);
             }
-            75% {
+            60% {
                 top: calc(100% - 50px);
-                left: 0;
+                left: 10%;
+            }
+            80% {
+                top: 30%;
+                left: 5%;
             }
             100% {
                 top: 0;
                 left: 0;
             }
+        }
+        .heart {
+            --size: 100px;
+            width: var(--size);
+            height: var(--size);
+            position: relative;
+            transform: rotate(45deg);
+            background-image: url('nayda.jpeg'); /* Aquí va la imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            animation: beat 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes beat {
+            to {
+                transform: rotate(45deg) scale(1.05);
+            }
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            background-image: url('nayda.jpeg'); /* Misma imagen que el fondo */
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -50%;
         }
     </style>
 </head>
@@ -68,6 +113,16 @@
 
     <h1>¿Quieres ser mi enamorada?</h1>
     <button class="btn yes-btn" id="yesBtn">Sí</button>
+    <br>
+    <br><br>
+    <!-- Contenedor de la imagen con forma de corazón debajo del botón "Sí" -->
+     <center>
+        <div class="heart-image">
+        <div class="heart"></div>
+    </div>
+     </center>
+    
+
     <button class="btn no-btn" id="noBtn">No</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
